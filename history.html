@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Expense History</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background: #f4f4f4;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .dark-mode {
+      background: #121212;
+      color: #e0e0e0;
+    }
+
+    .month-section {
+      background: white;
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .dark-mode .month-section {
+      background: #1e1e1e;
+      color: #ccc;
+      box-shadow: 0 2px 4px rgba(255,255,255,0.05);
+    }
+    
+    h1, h2 {
+      margin-bottom: 10px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    li {
+      margin-bottom: 5px;
+      font-size: 0.95em;
+    }
+
+    #theme-toggle {
+      margin-bottom: 20px;
+      padding: 6px 12px;
+      border-radius: 5px;
+      border: none;
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html"><button id="back-btn">🔙 Back to Dashboard</button></a>
+
+  <h1>📅 Full Expense History</h1>
+  <div id="history-container"></div>
+
+  <script>
+    const records = JSON.parse(localStorage.getItem("expenseRecords")) || {};
+    const container = document.getElementById("history-container");
+
+    const sortedMonths = Object.keys(records).sort().reverse();
+    sortedMonths.forEach(month => {
+      const { income, expenses } = records[month];
+      const total = expenses.reduce((sum, e) => sum + e.amount, 0);
+      const balance = income - total;
+
+      const section = document.createElement("div");
+      section.className = "month-section";
+      section.innerHTML = `
+        <h2>📆 ${month}</h2>
+        <p>💰 Income: ₹${income}</p>
+        <p>🧾 Spent: ₹${total}</p>
+        <p>🟢 Balance: ₹${balance}</p>
+        <h4>📋 Transactions:</h4>
+        <ul>
+          ${expenses.map(e => `<li>${e.date} - ₹${e.amount} for ${e.category} (${e.note || "No note"})</li>`).join("")}
+        </ul>
+      `;
+      container.appendChild(section);
+    });
+</script>
+
+</body>
+</html>

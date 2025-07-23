@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personal Finance Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>💸 Personal Finance Tracker</h1>
+
+    <!-- Month-Year Manual Selection -->
+    <section>
+      <label for="year-input">Year:</label>
+      <input type="number" id="year-input" min="2000" max="2100" value="2025" onchange="manualMonthChange()" />
+
+      <label for="month-select">Month:</label>
+      <select id="month-select" onchange="manualMonthChange()">
+        <option value="01">January</option>
+        <option value="02">February</option>
+        <option value="03">March</option>
+        <option value="04">April</option>
+        <option value="05">May</option>
+        <option value="06">June</option>
+        <option value="07">July</option>
+        <option value="08">August</option>
+        <option value="09">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+      </select>
+    </section>
+
+    <!-- Set Monthly Income -->
+    <section>
+      <label for="monthly-income">Set Monthly Income:</label>
+      <input type="number" id="monthly-income" placeholder="        " />
+      <button id="set-income-btn">Set Income</button>
+    </section>
+
+    <!-- Add Expense -->
+    <section>
+      <h2>Add Expense</h2>
+      <input type="number" id="expense-amount" placeholder="Amount" />
+      <input type="text" id="expense-category" placeholder="Category" />
+      <input type="text" id="expense-note" placeholder="Note (optional)" />
+      <button id="add-expense-btn">Add</button>
+    </section>
+
+    <!-- Summary -->
+    <section class="summary">
+      <h3>Summary for <span id="current-month"></span></h3>
+      <p>💰 Income: ₹<span id="income-value">0</span></p>
+      <p>🧾 Total Spent: ₹<span id="total-expense">0</span></p>
+      <p>🟢 Remaining: ₹<span id="remaining-balance">0</span></p>
+    </section>
+
+    <!-- Expense List -->
+    <section>
+      <h3>Expenses</h3>
+      <ul id="expense-list"></ul>
+    </section>
+
+    <!-- Chart Link -->
+    <section style="text-align:center; margin-top:20px;">
+      <a id="chart-link" href="chart.html?month=2025-07">
+        <button>📊 View Chart</button>
+      </a>
+    </section>
+  </div>
+<a href="history.html"><button>📖 View Full History</button></a>
+
+  <!-- Load JavaScript last -->
+  <script src="script.js"></script>
+</body>
+</html>
